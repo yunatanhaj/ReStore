@@ -1,25 +1,72 @@
-import { Button, ButtonGroup, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelctor } from "../../app/store/configureStore";
-import { decrement, increment } from "./counterSlice";
+import { useState } from 'react';
+import { TextField, Button, Container, Typography, Box } from '@mui/material';
 
-export default function ContactPage(){
-    const dispatch = useAppDispatch();
-    const{data,title}=useAppSelctor(state=>state.counter)
-    return(
+export default function ContactPage() {
+
+        const [name, setName] = useState('');
+        const [email, setEmail] = useState('');
+        const [message, setMessage] = useState('');
+      
+        const handleSubmit = (e: { preventDefault: () => void; }) => {
+          e.preventDefault();
+          // Handle form submission logic here
+          console.log('Name:', name);
+          console.log('Email:', email);
+          console.log('Message:', message);
+        };
+    
+    return (
         <>
-         <Typography variant="h2">
-            {title}
+        <Container maxWidth="sm">
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          mt: 4,
+          p: 4,
+          boxShadow: 1,
+          borderRadius: 1,
+        }}
+      >
+        <Typography variant="h4" component="h2" align="center" gutterBottom>
+          Contact Us
         </Typography>
-        
-        <Typography variant="h5">
-           The data is: {data}
-        </Typography>
-        <ButtonGroup>
-        <Button onClick={()=>dispatch(decrement(1))} variant="contained" color='error'>Decrement</Button>    
-        <Button onClick={()=>dispatch(increment(1))} variant="contained" color='primary'>Increment</Button>
-        <Button onClick={()=>dispatch(increment(5))} variant="contained" color='secondary'>Increment by 5</Button> 
-        </ButtonGroup>     
+        <TextField
+          label="Name"
+          variant="outlined"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          fullWidth
+        />
+        <TextField
+          label="Email"
+          variant="outlined"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          fullWidth
+        />
+        <TextField
+          label="Message"
+          variant="outlined"
+          multiline
+          rows={4}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          required
+          fullWidth
+        />
+        <Button variant="contained" color="primary" type="submit" fullWidth>
+          Submit
+        </Button>
+      </Box>
+    </Container>
         </>
-       
+
     )
 }
