@@ -9,7 +9,6 @@ import {
 import agent from '../../app/api/agent';
 import { Product } from '../../app/models/product';
 import {  OpenAI } from 'openai';
-import { json } from 'react-router-dom';
 
 
 
